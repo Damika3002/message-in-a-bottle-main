@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message in a bottle</title>
+    <style>
+      /* Center the title */
+      h1 {
+        text-align: center;
+      }
+
+      /* Increase the size of the lyrics lines */
+      #lyrics {
+        font-size: 25px;
+        line-height: 1.5;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const lines = [
+          {
+            text: "'Cause you could be the one that I love, love, love",
+            delay: 63,
+          },
+          { text: "I could be the one that you dream of, of, of", delay: 62.5 },
+          { text: "Message in a bottle is all I can do, do, do", delay: 68 },
+          { text: "Standin' here, hopin' it gets to you", delay: 79 },
+          { text: "You could be the one that I keep, and I, I, I", delay: 65 },
+          {
+            text: "Could be the reason you can't sleep at night, night, night",
+            delay: 50,
+          },
+          { text: "Message in a bottle is all I can do, do, do", delay: 65 },
+          { text: "Standin' here, hopin' it gets to you", delay: 70 },
+        ];
+
+        let currentLine = 0;
+        let currentChar = 0;
+
+        function typeCharacter() {
+          if (currentLine < lines.length) {
+            const line = lines[currentLine];
+            if (currentChar < line.text.length) {
+              document.getElementById("lyrics").innerText +=
+                line.text[currentChar];
+              currentChar++;
+              setTimeout(typeCharacter, line.delay);
+            } else {
+              document.getElementById("lyrics").innerText += "\n";
+              currentChar = 0;
+              currentLine++;
+              setTimeout(typeCharacter, 50);
+            }
+          }
+        }
+
+        const sound = new Audio("massage in a bottle.mp3"); // sound file
+
+        document.getElementById("lyrics").style.display = "block";
+        document
+          .getElementById("startButton")
+          .addEventListener("click", function () {
+            // Hide start button
+            this.style.display = "none";
+            // Show lyrics
+            document.getElementById("lyrics").style.display = "block";
+            // Change title
+            document.querySelector("h1").innerText = "Message in a bottle <3";
+            // Clear lyrics before starting
+            document.getElementById("lyrics").innerText = "";
+            // Play sound
+            sound.play();
+            // Start typing the lyrics
+            typeCharacter();
+            // Hide the <h2> line
+            document.querySelector("h2").style.display = "none";
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <h1>Lachchanayithe?</h1>
+      <h2 style="font-style: italic; opacity: 0.7; font-size: 18px">
+        by Akalanka
+      </h2>
+      <button id="startButton">Start</button>
+      <pre id="lyrics"></pre>
+    </div>
+  </body>
+</html>
